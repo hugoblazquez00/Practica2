@@ -24,6 +24,7 @@ namespace MiApp
             {
                 pale1,pale2,pale3,pale4,pale5,pale6
             };
+            int valorVoraz = 0, valorDinamica = 0, valorVueltaAtras = 0;
 
 
             int opcion = 0;
@@ -37,40 +38,46 @@ namespace MiApp
 
                 }
 
-                Console.WriteLine("Con que paradigma quiere resolver el problema:\n1-Voraz\n2-Dinamica\n3-Vuelta Atras");
+                Console.WriteLine("Con que paradigma quiere resolver el problema:\n1-Voraz\n2-Dinamica\n3-Vuelta Atras\n4-Exit");
                 opcion = int.Parse(Console.ReadLine());
                 switch (opcion)
                 {
                     case 1:
-                        Voraz(pesoMAX,pales);
+                        valorVoraz = Voraz(pesoMAX,pales);
                         Console.ReadLine();
                         Console.Clear();
                         break;
                     case 2:
-                        Dinamica(pesoMAX, pales);
+                        valorDinamica = Dinamica(pesoMAX, pales);
                         
                         break;
                     case 3:
-                        VueltaAtras();
+                        valorVueltaAtras = VueltaAtras();
                         
                         break;
                 }
             } while (opcion != 4);
 
-            
+            Console.WriteLine("Los valores obtenidos con los diferentes paradigmas son: ");
+            Console.WriteLine("Voraz = " + valorVoraz);
+            Console.WriteLine("Dinamica = " + valorDinamica);
+            Console.WriteLine("Vuelta Atras = " + valorVueltaAtras);
+            Console.ReadLine();
+
+
 
             //int[] sol = Voraz(pales);
-           
+
             //    pesototal = pale1.peso*sol[0] + pale2.peso*sol[1] + pale3.peso*sol[2]  + pale4.peso*sol[3]  + pale5.peso*sol[4] + pale6.peso*sol[5];
             //valortotal = pale1.valor*sol[0] + pale2.valor*sol[1] + pale3.valor*sol[2] + pale4.valor*sol[3] + pale5.valor*sol[4]+ pale6.valor*sol[5];
-        
+
             //Console.WriteLine("El peso total es "+ pesototal);
             //Console.WriteLine("El Valor total es "+ valortotal);
             //Console.WriteLine("Las cantidades son Pale1: "+ sol[0]+" Pale2: "+sol[1]+" Pale3: "+sol[2]+" Pale4 "+sol[3]+" Pale5 "+sol[4]+" Pale6 "+sol[5]);
 
         }
 
-    static int[] Voraz(int pesoMAX,List<Pale> pales )
+    static int Voraz(int pesoMAX,List<Pale> pales )
     {
         int[] sol = {0,0,0,0,0,0};
         int pesoacumulado=0;
@@ -95,9 +102,10 @@ namespace MiApp
         //}
 
 
-        return sol;
+        //return sol;
+         return 0;
     }
-    static void Dinamica(int pesoMAX, List<Pale> pales)
+    static int Dinamica(int pesoMAX, List<Pale> pales)
     {
             // ----- Obtencion de las diferentes soluciones + la solucion final -----
 
@@ -161,13 +169,17 @@ namespace MiApp
             }
             Console.ReadLine();
             Console.Clear();
+            return solucionesPosibles[numeroDePales, pesoMAX];
+            
+
         }
-    static void VueltaAtras()
+    static int VueltaAtras()
     {
 
 
             Console.ReadLine();
             Console.Clear();
+            return 0;
     }
 
 
