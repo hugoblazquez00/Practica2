@@ -1,0 +1,29 @@
+﻿<Properties StartupConfiguration="{7ECEAEFD-3206-4D43-8190-6C0586DAA172}|Default">
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Practica2/Program.cs">
+    <Files>
+      <File FileName="Program.cs" Line="68" Column="44" />
+      <File FileName="Pale.cs" Line="2" Column="16" />
+    </Files>
+    <Pads>
+      <Pad Id="ClassPad">
+        <State name="__root__">
+          <Node name="Practica2" expanded="True">
+            <Node name="Practica2" expanded="True">
+              <Node name="MiApp" expanded="True">
+                <Node name="MiApp.Pale" expanded="True" />
+                <Node name="MiApp.Program" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Practica2 PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+</Properties>

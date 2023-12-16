@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/hugo.blazquez/Desktop/UFV/3º/PrimerCuatri/COCO/Codigos/Practica2/Practica2.csproj",
+      "projectUniqueName": "/Users/hugo.blazquez/Desktop/UFV/3º/PrimerCuatri/COCO/Codigos/Practica2/Practica2/Practica2.csproj",
       "projectName": "Practica2",
-      "projectPath": "/Users/hugo.blazquez/Desktop/UFV/3º/PrimerCuatri/COCO/Codigos/Practica2/Practica2.csproj",
+      "projectPath": "/Users/hugo.blazquez/Desktop/UFV/3º/PrimerCuatri/COCO/Codigos/Practica2/Practica2/Practica2.csproj",
       "packagesPath": "/Users/hugo.blazquez/.nuget/packages/",
-      "outputPath": "/Users/hugo.blazquez/Desktop/UFV/3º/PrimerCuatri/COCO/Codigos/Practica2/obj/",
+      "outputPath": "/Users/hugo.blazquez/Desktop/UFV/3º/PrimerCuatri/COCO/Codigos/Practica2/Practica2/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/hugo.blazquez/.nuget/NuGet/NuGet.Config"
