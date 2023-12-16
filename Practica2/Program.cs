@@ -11,12 +11,12 @@ namespace MiApp
     static void Main(string[] args)
     {
             int valortotal,pesototal=0;
-            Pale pale1 = new Pale(1, 171);
-            Pale pale2 = new Pale(4, 49);
-            Pale pale3 = new Pale(3, 98);
-            Pale pale4 = new Pale(11, 130);
-            Pale pale5 = new Pale(9, 96);
-            Pale pale6 = new Pale(5, 90);
+            Pale pale1 = new Pale(1, 171, 1);
+            Pale pale2 = new Pale(4, 49, 2);
+            Pale pale3 = new Pale(3, 98, 3);
+            Pale pale4 = new Pale(11, 130, 4);
+            Pale pale5 = new Pale(9, 96, 5);
+            Pale pale6 = new Pale(5, 90, 6);
             int[] limits = { 17, 4, 5, 1, 1, 3 };
             int pesoMAX = 17;
             
@@ -24,37 +24,35 @@ namespace MiApp
             {
                 pale1,pale2,pale3,pale4,pale5,pale6
             };
-            
-            Console.WriteLine("Quiere meter la mayor cantidad de valor en un barco con un peso maximo de : " + pesoMAX);
-            Console.WriteLine("Y tiene los siguientes pales:");
-            int i = 1;
-            foreach( Pale pale in pales)
-            {
-                Console.WriteLine("Pale " + i + " ---- Peso : " + pale.peso + " ---- Valor : " + pale.valor);
-                i++;
-            }
+
 
             int opcion = 0;
             do
             {
+                Console.WriteLine("Quiere meter la mayor cantidad de valor en un barco con un peso maximo de : " + pesoMAX);
+                Console.WriteLine("Y tiene los siguientes pales:");
+                foreach (Pale pale in pales)
+                {
+                    Console.WriteLine("Pale " + pale.numeroDePale + " ---- Peso : " + pale.peso + " ---- Valor : " + pale.valor);
+
+                }
+
                 Console.WriteLine("Con que paradigma quiere resolver el problema:\n1-Voraz\n2-Dinamica\n3-Vuelta Atras");
                 opcion = int.Parse(Console.ReadLine());
                 switch (opcion)
                 {
                     case 1:
-                        Voraz(pales);
+                        Voraz(pesoMAX,pales);
                         Console.ReadLine();
                         Console.Clear();
                         break;
                     case 2:
                         Dinamica(pesoMAX, pales);
-                        Console.ReadLine();
-                        Console.Clear();
+                        
                         break;
                     case 3:
                         VueltaAtras();
-                        Console.ReadLine();
-                        Console.Clear();
+                        
                         break;
                 }
             } while (opcion != 4);
@@ -72,7 +70,7 @@ namespace MiApp
 
         }
 
-    static int[] Voraz(List<Pale> pales)
+    static int[] Voraz(int pesoMAX,List<Pale> pales )
     {
         int[] sol = {0,0,0,0,0,0};
         int pesoacumulado=0;
@@ -85,7 +83,7 @@ namespace MiApp
             }
 
 
-            pesoacumulado = pale1.peso*sol[0] + pale2.peso*sol[1] + pale3.peso*sol[2]  + pale4.peso*sol[3]  + pale5.peso*sol[4] + pale6.peso*sol[5];
+            //pesoacumulado = pale1.peso*sol[0] + pale2.peso*sol[1] + pale3.peso*sol[2]  + pale4.peso*sol[3]  + pale5.peso*sol[4] + pale6.peso*sol[5];
         }
 
         //for (Pale pale : pales) {
@@ -99,37 +97,51 @@ namespace MiApp
 
         return sol;
     }
-    static void Dinamica(int capacidadMax, List<Pale> pales)
+    static void Dinamica(int pesoMAX, List<Pale> pales)
     {
+            // ----- Obtencion de las diferentes soluciones + la solucion final -----
+
             int numeroDePales = pales.Count;
-            int[,] solucionesPosibles = new int[numeroDePales + 1, capacidadMax + 1];
+            // Utilizaremos la matriz "solucionesPosibles" para guardar el valor de las soluciones en funcion de la
+            // cantidad de pales guardados y el peso que ocupen.
+            int[,] solucionesPosibles = new int[numeroDePales + 1, pesoMAX + 1];
+            // "palesSelecionados" lo usaremos para guardar los pales selecionados en la solucion final.
             List<Pale> palesSelecionados = new List<Pale>();
 
-            for (int numeroDePalesGuardados = 0; numeroDePalesGuardados <= numeroDePales; numeroDePalesGuardados++)
+            for (int numeroDePalesRevisados = 0; numeroDePalesRevisados <= numeroDePales; numeroDePalesRevisados++)
             {
-                for (int w = 0; w <= capacidadMax; w++)
+                for (int pesoActual = 0; pesoActual <= pesoMAX; pesoActual++)
                 {
-                    if (numeroDePalesGuardados == 0 || w == 0)
+                    // Cuando el bucle acaba de empezar el valor de la solucion posible es 0.
+                    if (numeroDePalesRevisados == 0 || pesoActual == 0)
                     {
-                        solucionesPosibles[numeroDePalesGuardados, w] = 0;
+                        solucionesPosibles[numeroDePalesRevisados, pesoActual] = 0;
                     }
-                    else if (pales[numeroDePalesGuardados - 1].peso <= w)
+                    // Si el peso del pale es menor o igual que el peso actual, guardara en una nueva solucion el valor maximo entre la solucion anterior, y la suma del valor de la solucion anterior mas el de ese pale, pero restando el peso que consumes al añadir ese pale.
+                    else if (pales[numeroDePalesRevisados - 1].peso <= pesoActual)
                     {
-                        solucionesPosibles[numeroDePalesGuardados, w] = Math.Max(pales[numeroDePalesGuardados - 1].valor + solucionesPosibles[numeroDePalesGuardados - 1, w - pales[numeroDePalesGuardados - 1].peso], solucionesPosibles[numeroDePalesGuardados - 1, w]);
+                        solucionesPosibles[numeroDePalesRevisados, pesoActual] = Math.Max(pales[numeroDePalesRevisados - 1].valor + solucionesPosibles[numeroDePalesRevisados - 1, pesoActual - pales[numeroDePalesRevisados - 1].peso], solucionesPosibles[numeroDePalesRevisados - 1, pesoActual]);
+
                     }
                     else
                     {
-                        solucionesPosibles[numeroDePalesGuardados, w] = solucionesPosibles[numeroDePalesGuardados - 1, w];
+                        // Si el peso supera el maximo, se quedara con la solucion anterior
+                        solucionesPosibles[numeroDePalesRevisados, pesoActual] = solucionesPosibles[numeroDePalesRevisados - 1,pesoActual];
                     }
                 }
             }
 
-            int valorMaximo = solucionesPosibles[numeroDePales, capacidadMax];
-            int capacidadRestante = capacidadMax;
+            // ----- Representacion de la solucion final -----
+
+            // Guardamos el peso maximo y el valor de la solucion final, la cual es la que ya ha revisado todas las combianciones con todos los pales y pesos.
+            int valorMaximo = solucionesPosibles[numeroDePales, pesoMAX];
+            int capacidadRestante = pesoMAX;
 
             Console.WriteLine("Valor maximo en el barco = " + valorMaximo);
 
-            Console.Write("Pales seleccionado: ");
+            Console.WriteLine("Pales seleccionado: ");
+            // Para recuperar cuales han sido los pales selecionados, comprobamos las diferentes soluciones viendo cuando son diferente, que significa que en ese momento se añadio un pale, y se añade ese pale a la lista de pales seleccionados.
+            
             for (int i = numeroDePales; i > 0 && valorMaximo > 0; i--)
             {
                 if (solucionesPosibles[i, capacidadRestante] != solucionesPosibles[i - 1, capacidadRestante])
@@ -137,22 +149,25 @@ namespace MiApp
                     palesSelecionados.Add(pales[i - 1]);
                     valorMaximo = valorMaximo - pales[i - 1].valor;
                     capacidadRestante = capacidadRestante - pales[i - 1].peso;
+                    
                 }
             }
 
             palesSelecionados.Reverse(); // Reversar la lista para que los elementos estén en orden original
-
+           
             foreach (Pale pale in palesSelecionados)
             {
-                Console.WriteLine("Peso: " + pale.peso + " Valor: "+ pale.valor);
+                Console.WriteLine("Pale " + pale.numeroDePale + " ---- Peso : " + pale.peso + " ---- Valor : " + pale.valor);
             }
-
-            Console.WriteLine();
+            Console.ReadLine();
+            Console.Clear();
         }
     static void VueltaAtras()
     {
-        
-        
+
+
+            Console.ReadLine();
+            Console.Clear();
     }
 
 
